@@ -8,13 +8,9 @@ import { MatIconModule } from "@angular/material/icon";
 import { HttpClientModule } from "@angular/common/http";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
-import { DialogConfigureWalletComponent } from './dialog-configure-wallet/dialog-configure-wallet.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    DialogConfigureWalletComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
