@@ -6,17 +6,23 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatIconModule } from "@angular/material/icon";
 import { HttpClientModule } from "@angular/common/http";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatButtonModule } from "@angular/material/button";
+import { DialogConfigureWalletComponent } from './dialog-configure-wallet/dialog-configure-wallet.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DialogConfigureWalletComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     FlexLayoutModule,
-    MatIconModule
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
