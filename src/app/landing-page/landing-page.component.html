@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="landing-page.component.scss">
+<div fxFlex="1 1 auto" fxLayout="row">
+  <div fxFlex="0" fxFlex.gt-xs="10" fxFlex.gt-md="20" fxFlex.gt-lg="30"></div>
+  <div class="title" fxFlex="100" fxFlex.gt-xs="80" fxFlex.gt-md="60" fxFlex.gt-lg="40" fxLayout="column">
+    <strong>Welcome to</strong>
+    <h1>QUID GAME</h1>
+    <div class="shapes" fxLayout="row" fxLayoutAlign="space-around">
+      <mat-icon svgIcon="circle" class="shape"></mat-icon>
+      <mat-icon svgIcon="triangle" class="shape"></mat-icon>
+      <mat-icon svgIcon="rectangle" class="shape"></mat-icon>
+    </div>
+
+    <div fxFlexOffset="10vh">
+      <strong>The rules of the game:</strong>
+      <p>- Set a certain amount</p>
+      <p>- Bet if the sum of all amounts is odd or even</p>
+    </div>
+    <div fxFlex="1 1 auto" fxFlex.gt-xs="10"></div>
+    <button class="bet-button" mat-raised-button color="primary">BET</button>
+  </div>
+  <div fxFlex="0" fxFlex.gt-xs="10" fxFlex.gt-md="20" fxFlex.gt-lg="30"></div>
+</div>

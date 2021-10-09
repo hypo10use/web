@@ -1,0 +1,15 @@
+<div class="rules">
+  <strong>The rules of the <span class="display">game</span>:</strong>
+  <ul class="rules-list">
+    <li class="rule"><mat-icon svgIcon="circle" class="bullet"></mat-icon>Each player must bet a number of QUID tokens between 1 and 5.</li>
+    <li class="rule"><mat-icon svgIcon="triangle" class="bullet"></mat-icon>After all the bets have been collected, each player must guess the total value in the pot.</li>
+    <li class="rule"><mat-icon svgIcon="rectangle" class="bullet"></mat-icon>The player with the closest guess wins the pot.</li>
+  </ul>
+</div>
+
+<div class="content" [ngSwitch]="gameState$ | async">
+  <ergo-lobby-stage *ngSwitchCase="'LOBBY'"></ergo-lobby-stage>
+  <ergo-guess-stage *ngSwitchCase="'GUESS'"></ergo-guess-stage>
+  <ergo-lobby-stage *ngSwitchDefault></ergo-lobby-stage>
+</div>
+

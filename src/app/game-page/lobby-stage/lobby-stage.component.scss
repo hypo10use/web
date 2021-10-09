@@ -1,0 +1,17 @@
+@import './src/stylesheet/colour';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+  text-align: center;
+
+  .loading {
+    width: 200px;
+  }
+  .button-container {
+    height: 36px;
+  }
+}
