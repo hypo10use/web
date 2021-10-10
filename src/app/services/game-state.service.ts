@@ -1,8 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, Subject } from "rxjs";
-import { filter, map, tap } from "rxjs/operators";
+import { filter, map } from "rxjs/operators";
 import { SocketService } from "../socket.service";
-import { GameStatusService } from "./game-status.service";
 
 export type GameState = 'LOBBY' | 'GUESS' | 'RESULT';
 
@@ -12,7 +11,7 @@ export class GameStateService implements OnDestroy {
   readonly gameState$: Observable<GameState>;
   readonly timeUntilStateChange$: Observable<number>;
 
-  constructor(private socketService: SocketService, private statusService: GameStatusService) {
+  constructor(private socketService: SocketService) {
     const stateChange$: Observable<any> = this.socketService.messages$.pipe(
       filter(event => event.event === 'stateChanged')
     );
@@ -28,7 +27,6 @@ export class GameStateService implements OnDestroy {
 
   fetch(): void {
     this.socketService.connect('123123123123');
-    this.statusService.fetchStatus$('123123123123');
   }
 
   ngOnDestroy(): void {

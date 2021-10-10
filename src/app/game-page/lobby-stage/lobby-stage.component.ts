@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from "@angular/forms";
-import { BetService } from "../bet.service";
-import { GuessService } from "../guess.service";
+import { BetService } from "../../services/bet.service";
+import { GuessService } from "../../services/guess.service";
 
 @Component({
   selector: 'ergo-lobby-stage',

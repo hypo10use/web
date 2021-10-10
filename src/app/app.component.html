@@ -2,15 +2,37 @@
   <mat-toolbar color="primary">
     <span>hype10use</span>
     <span class="toolbar-spacer"></span>
-    <button mat-raised-button color="accent" (click)="openWalletDialog()">
-      <span *ngIf="address; else configureWallet">Wallet {{address.substring(0, 4)}}... </span>
-      <ng-template #configureWallet>
-        <span>Configure Wallet </span>
-      </ng-template>
-      <mat-icon>account_balance_wallet</mat-icon>
-    </button>
+    <ng-container [ngSwitch]="walletConnectionState$ | async">
+      <mat-spinner *ngSwitchCase="WALLET_CONNECTION_STATES.CONNECTING" color="accent" diameter="40"></mat-spinner>
+      <ng-container *ngSwitchCase="WALLET_CONNECTION_STATES.CONNECTED">
+        <button mat-raised-button color="accent">
+          <ng-container *ngIf="balance >= 0; else loadingBalance">
+            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="4px">
+              <span>{{balance | token: selectedToken}}</span>
+              <span>{{selectedToken.name}}</span>
+            </div>
+          </ng-container>
+          <ng-template #loadingBalance>
+            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="4px">
+              <mat-spinner diameter="20"></mat-spinner>
+              <span>{{selectedToken.name}}</span>
+            </div>
+          </ng-template>
+        </button>
+      </ng-container>
+      <button *ngSwitchDefault mat-raised-button color="accent" (click)="connectWallet()">
+        <span>Connect Wallet</span>
+        <mat-icon>account_balance_wallet</mat-icon>
+      </button>
+    </ng-container>
   </mat-toolbar>
-  <router-outlet></router-outlet>
+  <div fxFlex="1 1 auto" fxLayout="row">
+    <div fxFlex="0" fxFlex.gt-xs="10" fxFlex.gt-md="20" fxFlex.gt-lg="30"></div>
+    <div fxFlex="100" fxFlex.gt-xs="80" fxFlex.gt-md="60" fxFlex.gt-lg="40">
+      <router-outlet></router-outlet>
+    </div>
+    <div fxFlex="0" fxFlex.gt-xs="10" fxFlex.gt-md="20" fxFlex.gt-lg="30"></div>
+  </div>
 </main>
 
 

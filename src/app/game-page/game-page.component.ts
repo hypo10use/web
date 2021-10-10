@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { BetService } from "./bet.service";
-import { GameStateService } from "./game-state.service";
-import { GameStatusService } from "./game-status.service";
-import { GuessService } from "./guess.service";
+import { BetService } from "../services/bet.service";
+import { GameStateService } from "../services/game-state.service";
+import { GuessService } from "../services/guess.service";
 
 @Component({
   selector: 'ergo-game-page',
   templateUrl: './game-page.component.html',
   styleUrls: ['./game-page.component.scss'],
-  providers: [GameStateService, BetService, GameStatusService, GuessService]
+  providers: [GameStateService, BetService, GuessService]
 })
 export class GamePageComponent implements OnInit{
   readonly gameState$ = this.gameStateService.gameState$;
