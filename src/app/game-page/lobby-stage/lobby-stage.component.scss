@@ -8,10 +8,16 @@
   width: 100%;
   text-align: center;
 
-  .loading {
-    width: 200px;
-  }
   .button-container {
     height: 36px;
+  }
+
+  .mat-radio-button ~ .mat-radio-button {
+    margin-left: 16px;
+  }
+
+  .field {
+    margin-bottom: 24px;
+    display: block;
   }
 }

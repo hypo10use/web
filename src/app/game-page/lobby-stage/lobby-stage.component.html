@@ -1,10 +1,7 @@
-<div>
-  <p>You are currently in the <span class="primary">lobby</span>.</p>
-  <p>Please place a bet and wait for the <span class="display">game</span> to begin.</p>
-</div>
+<span>Please place a bet and submit a guess before the timer runs out.</span>
 
 <div>
-  <mat-form-field floatLabel="always">
+  <mat-form-field class="field" floatLabel="always">
     <mat-label>Bet amount</mat-label>
     <input placeholder="e.g. 1" matInput type="number" max="5" min="1" [formControl]="bet" />
     <mat-error *ngIf="bet.invalid">
@@ -12,7 +9,11 @@
     </mat-error>
     <span matSuffix>QUID</span>
   </mat-form-field>
+  <mat-radio-group class="field" [formControl]="guess">
+    <mat-radio-button value="even">Even Total</mat-radio-button>
+    <mat-radio-button value="odd">Odd Total</mat-radio-button>
+  </mat-radio-group>
   <div class="button-container">
-    <button *ngIf="bet.valid" mat-raised-button color="accent">Place bet</button>
+    <button *ngIf="bet.valid && guess.valid" mat-raised-button color="accent" (click)="submit()">Submit</button>
   </div>
 </div>
