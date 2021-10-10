@@ -16,11 +16,10 @@ import { LoadingComponent } from './loading/loading.component';
 import { GamePageComponent } from './game-page/game-page.component';
 import { LobbyStageComponent } from './game-page/lobby-stage/lobby-stage.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import { DialogConfigureWalletComponent } from './dialog-configure-wallet/dialog-configure-wallet.component';
-import { MatDialogModule } from "@angular/material/dialog";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 @NgModule({
-  declarations: [AppComponent, LoadingComponent, GamePageComponent, LobbyStageComponent, LandingPageComponent, GuessStageComponent, DialogConfigureWalletComponent],
+  declarations: [AppComponent, LoadingComponent, GamePageComponent, LobbyStageComponent, LandingPageComponent, GuessStageComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -29,7 +28,7 @@ import { MatDialogModule } from "@angular/material/dialog";
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
-    MatDialogModule,
+    MatProgressSpinnerModule,
     RouterModule.forRoot([{
       path: 'game',
       component: GamePageComponent,

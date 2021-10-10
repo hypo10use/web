@@ -2,13 +2,17 @@
   <mat-toolbar color="primary">
     <span>hype10use</span>
     <span class="toolbar-spacer"></span>
-    <button mat-raised-button color="accent" (click)="openWalletDialog()">
-      <span *ngIf="address; else configureWallet">Wallet {{address.substring(0, 4)}}... </span>
-      <ng-template #configureWallet>
-        <span>Configure Wallet </span>
-      </ng-template>
-      <mat-icon>account_balance_wallet</mat-icon>
-    </button>
+    <ng-container [ngSwitch]="walletConnectionState$ | async">
+      <button *ngSwitchCase="WALLET_CONNECTION_STATES.NOT_CONNECTED || WALLET_CONNECTION_STATES.DISCONNECTED"
+              mat-raised-button color="accent" (click)="connectWallet()">
+        <span>Connect Wallet</span>
+        <mat-icon>account_balance_wallet</mat-icon>
+      </button>
+      <mat-spinner *ngSwitchCase="WALLET_CONNECTION_STATES.CONNECTING" color="accent" diameter="40"></mat-spinner>
+      <button *ngSwitchCase="WALLET_CONNECTION_STATES.CONNECTED" mat-raised-button color="accent">
+        {{balance}} {{selectedToken}}
+      </button>
+    </ng-container>
   </mat-toolbar>
   <router-outlet></router-outlet>
 </main>
