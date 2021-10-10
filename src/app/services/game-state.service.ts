@@ -1,7 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, Subject } from "rxjs";
-import { filter, map } from "rxjs/operators";
+import { filter, map, take } from "rxjs/operators";
 import { SocketService } from "../socket.service";
+import { AddressService } from "./address.service";
 
 export type GameState = 'LOBBY' | 'GUESS' | 'RESULT';
 
@@ -11,7 +12,7 @@ export class GameStateService implements OnDestroy {
   readonly gameState$: Observable<GameState>;
   readonly timeUntilStateChange$: Observable<number>;
 
-  constructor(private socketService: SocketService) {
+  constructor(private socketService: SocketService, private addressService: AddressService) {
     const stateChange$: Observable<any> = this.socketService.messages$.pipe(
       filter(event => event.event === 'stateChanged')
     );
@@ -26,7 +27,13 @@ export class GameStateService implements OnDestroy {
   }
 
   fetch(): void {
-    this.socketService.connect('123123123123');
+    this.addressService.address$.pipe(take(1)).subscribe((address) => {
+      if (!!address) {
+        this.socketService.connect(address);
+      } else {
+        throw Error('Address not defined, cannot connect.');
+      }
+    });
   }
 
   ngOnDestroy(): void {

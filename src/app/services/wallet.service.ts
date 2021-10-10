@@ -28,6 +28,8 @@ export interface ErgoAPI {
   get_balance(token_id: string): Promise<number>,
 
   sign_tx(tx: Object): Promise<string>;
+
+  get_used_addresses(paginate?: Object): Promise<string[]>;
 }
 
 @Injectable({
@@ -68,6 +70,14 @@ export class WalletService {
   getBalance(token: Token = Token.ERG): Observable<number> {
     if (this._ergo) {
       return from(this._ergo.get_balance(token.id));
+    }
+    this._walletConnectionState.next(WalletConnectionState.DISCONNECTED);
+    throw 'Wallet not initialized';
+  }
+
+  getUsedAddresses(): Observable<string[]> {
+    if (this._ergo) {
+      return from(this._ergo.get_used_addresses());
     }
     this._walletConnectionState.next(WalletConnectionState.DISCONNECTED);
     throw 'Wallet not initialized';

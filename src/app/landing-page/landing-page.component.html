@@ -13,5 +13,15 @@
     <p>- Bet if the sum of all amounts is odd or even</p>
   </div>
   <div fxFlex="1 1 auto" fxFlex.gt-xs="10"></div>
-  <button routerLink="game" class="bet-button" mat-raised-button color="accent">BET</button>
+  <ng-container *ngIf="hasAddresses$ | async">
+    <mat-form-field>
+      <mat-label>Select a wallet address to use:</mat-label>
+      <mat-select [formControl]="address">
+        <mat-option [value]="address" *ngFor="let address of addresses$ | async">
+          {{address}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button *ngIf="address.valid" routerLink="game" class="bet-button" mat-raised-button color="accent">Play</button>
+  </ng-container>
 </div>

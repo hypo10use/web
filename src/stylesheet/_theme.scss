@@ -244,3 +244,6 @@ $dark-squid-theme: mat.define-dark-theme((
 @include mat.icon-theme($light-squid-theme);
 @include mat.radio-theme($light-squid-theme);
 @include mat.progress-spinner-theme($light-squid-theme);
+@include mat.select-theme($light-squid-theme);
+@include mat.option-theme($light-squid-theme);
+@include mat.form-field-theme($light-squid-theme);
