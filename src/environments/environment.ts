@@ -4,7 +4,6 @@
 
 export const environment = {
   production: false,
-  // TODO: Replace with actual endpoints
   wsEndpoint: 'ws://localhost:3000/ws',
   httpEndpoint: 'http://localhost:4200/api'
 };
