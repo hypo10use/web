@@ -1,30 +1,44 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
-import { MatDialog, MatDialogRef } from "@angular/material/dialog";
-import { DialogConfigureWalletComponent } from "./dialog-configure-wallet/dialog-configure-wallet.component";
+import { TOKEN, WalletConnectionState, WalletService } from "./wallet.service";
+import { Observable } from "rxjs";
 
 @Component({
   selector: 'ergo-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'ergohack';
-  address: string = '';
+  walletConnectionState$: Observable<WalletConnectionState>;
+  WALLET_CONNECTION_STATES: typeof WalletConnectionState = WalletConnectionState;
+  balance: number = 0;
 
-  constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, private dialog: MatDialog) {
+  selectedToken = TOKEN.ERG;
+
+  constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, private walletService: WalletService) {
+    this.walletConnectionState$ = this.walletService.walletConnectionState$;
+
+    this.walletConnectionState$.subscribe((state: WalletConnectionState) => {
+      console.log(state);
+      if (state === WalletConnectionState.CONNECTED) {
+        this.walletService.getBalance(this.selectedToken).subscribe((balance: number) => {
+          this.balance = balance;
+        });
+      }
+    })
+
     this.matIconRegistry.addSvgIcon('circle', this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/circle.svg'));
     this.matIconRegistry.addSvgIcon('triangle', this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/triangle.svg'));
     this.matIconRegistry.addSvgIcon('rectangle', this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/rectangle.svg'));
   }
 
-  openWalletDialog() {
-    const matDialogRef: MatDialogRef<DialogConfigureWalletComponent> = this.dialog.open(DialogConfigureWalletComponent, {width: '800px'});
-    matDialogRef.afterClosed().subscribe((address: string) => {
-      if (address) {
-        this.address = address;
-      }
-    })
+  ngOnInit(): void {
+
+  }
+
+  connectWallet() {
+    this.walletService.connectWallet();
   }
 }
