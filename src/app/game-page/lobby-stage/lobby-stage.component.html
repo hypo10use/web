@@ -1,13 +1,7 @@
-<div>
-  <p>You are currently in the <span class="primary">lobby</span>.</p>
-  <ng-container *ngIf="(isWaiting$ | async) === false; else defaultMessage">
-    <p>Please place a bet and wait for the <span class="display">game</span> to begin.</p>
-  </ng-container>
-  <ng-template #defaultMessage>Please wait for the <span class="display">game</span> to begin.</ng-template>
-</div>
+<span>Please place a bet and submit a guess before the timer runs out.</span>
 
-<div *ngIf="(loading$ | async) === false">
-  <mat-form-field floatLabel="always">
+<div>
+  <mat-form-field class="field" floatLabel="always">
     <mat-label>Bet amount</mat-label>
     <input placeholder="e.g. 1" matInput type="number" max="5" min="1" [formControl]="bet" />
     <mat-error *ngIf="bet.invalid">
@@ -15,7 +9,11 @@
     </mat-error>
     <span matSuffix>QUID</span>
   </mat-form-field>
+  <mat-radio-group class="field" [formControl]="guess">
+    <mat-radio-button value="even">Even Total</mat-radio-button>
+    <mat-radio-button value="odd">Odd Total</mat-radio-button>
+  </mat-radio-group>
   <div class="button-container">
-    <button *ngIf="bet.valid && !hasBet" mat-raised-button color="accent" (click)="placeBet()">Place bet</button>
+    <button *ngIf="bet.valid && guess.valid" mat-raised-button color="accent" (click)="submit()">Submit</button>
   </div>
 </div>

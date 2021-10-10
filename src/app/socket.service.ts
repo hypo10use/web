@@ -11,22 +11,23 @@ export const WS_ENDPOINT = environment.wsEndpoint;
 })
 export class SocketService {
   private socket$: WebSocketSubject<any> | null = null;
-  private messagesSubject$: Subject<Observable<any>> = new Subject();
-  readonly messages$ = this.messagesSubject$.pipe(switchAll(), catchError(e => { throw e }));
+  private messagesSubject$: Subject<any> = new Subject();
+  readonly messages$ = this.messagesSubject$.pipe(catchError(e => { throw e }));
 
-  connect(): void {
+  connect(address: string): void {
     if (!this.socket$ || this.socket$.closed) {
-      this.socket$ = SocketService.getNewWebSocket();
-      const messages = this.socket$.pipe(
+      this.socket$ = SocketService.getNewWebSocket(address);
+      this.socket$.pipe(
         tap({
           error: error => console.log(error),
-        }), catchError(_ => EMPTY));
-      this.messagesSubject$.next(messages);
+        }), catchError(_ => EMPTY)).subscribe(message =>
+        this.messagesSubject$.next(message)
+      );
     }
   }
 
-  private static getNewWebSocket(): WebSocketSubject<any> {
-    return webSocket(WS_ENDPOINT);
+  private static getNewWebSocket(address: string): WebSocketSubject<any> {
+    return webSocket(`${WS_ENDPOINT}?address=${address}`);
   }
 
   sendMessage(msg: any): void {

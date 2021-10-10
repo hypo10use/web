@@ -1,22 +1,22 @@
-import { Component } from '@angular/core';
-import { Observable } from "rxjs";
+import { Component, OnInit } from '@angular/core';
 import { BetService } from "./bet.service";
-import { GameState, GameStateService } from "./game-state.service";
+import { GameStateService } from "./game-state.service";
 import { GameStatusService } from "./game-status.service";
-import { ParticipantGameStatusService } from "./participant-game-status.service";
+import { GuessService } from "./guess.service";
 
 @Component({
   selector: 'ergo-game-page',
   templateUrl: './game-page.component.html',
   styleUrls: ['./game-page.component.scss'],
-  providers: [GameStateService, BetService, GameStatusService, ParticipantGameStatusService]
+  providers: [GameStateService, BetService, GameStatusService, GuessService]
 })
-export class GamePageComponent {
-  readonly gameState$!: Observable<GameState>;
-  readonly loading$!: Observable<boolean>;
+export class GamePageComponent implements OnInit{
+  readonly gameState$ = this.gameStateService.gameState$;
+  readonly timeRemaining$ = this.gameStateService.timeUntilStateChange$;
 
-  constructor(private gameStateService: GameStateService) {
-    this.gameState$ = this.gameStateService.gameState$;
-    this.loading$ = this.gameStateService.loading$;
+  constructor(private gameStateService: GameStateService) {}
+
+  ngOnInit(): void {
+    this.gameStateService.fetch();
   }
 }
