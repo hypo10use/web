@@ -66,6 +66,7 @@ export class WalletService {
     if (this._ergo) {
       return from(this._ergo.get_balance(token.valueOf()));
     }
+    this._walletConnectionState.next(WalletConnectionState.DISCONNECTED);
     throw 'Wallet not initialized';
   }
 }

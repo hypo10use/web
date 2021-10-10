@@ -17,9 +17,10 @@ import { GamePageComponent } from './game-page/game-page.component';
 import { LobbyStageComponent } from './game-page/lobby-stage/lobby-stage.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { ErgPipe } from './pipes/erg.pipe';
 
 @NgModule({
-  declarations: [AppComponent, LoadingComponent, GamePageComponent, LobbyStageComponent, LandingPageComponent, GuessStageComponent],
+  declarations: [AppComponent, LoadingComponent, GamePageComponent, LobbyStageComponent, LandingPageComponent, GuessStageComponent, ErgPipe],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

@@ -5,7 +5,18 @@
     <ng-container [ngSwitch]="walletConnectionState$ | async">
       <mat-spinner *ngSwitchCase="WALLET_CONNECTION_STATES.CONNECTING" color="accent" diameter="40"></mat-spinner>
       <button *ngSwitchCase="WALLET_CONNECTION_STATES.CONNECTED" mat-raised-button color="accent">
-        {{balance}} {{selectedToken}}
+        <ng-container *ngIf="balance >= 0; else loadingBalance">
+          <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="4px">
+            <span>{{balance | erg}}</span>
+            <span>{{selectedToken}}</span>
+          </div>
+        </ng-container>
+        <ng-template #loadingBalance>
+          <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="4px">
+            <mat-spinner diameter="20"></mat-spinner>
+            <span>{{selectedToken}}</span>
+          </div>
+        </ng-template>
       </button>
       <button *ngSwitchDefault mat-raised-button color="accent" (click)="connectWallet()">
         <span>Connect Wallet</span>

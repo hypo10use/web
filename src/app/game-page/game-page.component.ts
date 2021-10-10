@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from "rxjs";
-import { GameState, GameStateService } from "../game-state.service";
+import { GameState, GameStateService } from "../services/game-state.service";
 
 @Component({
   selector: 'ergo-game-page',
