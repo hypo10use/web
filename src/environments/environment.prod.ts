@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
   // TODO: Replace with actual endpoints
-  wsEndpoint: 'ws://localhost:3000/ws',
+  wsEndpoint: 'wss://hypo10use-backend.herokuapp.com/ws',
   httpEndpoint: 'http://localhost:4200/api'
 };
