@@ -151,14 +151,36 @@ $mat-dark-theme-background: (
 // Theme Config
 
 body {
-  --primary-color: $yellow;
-  --primary-lighter-color: #ecf4d9;
-  --primary-darker-color: #abcd63;
-  --text-primary-color: #{$dark-primary-text};
-  --text-primary-lighter-color: #{$dark-primary-text};
-  --text-primary-darker-color: #{$dark-primary-text};
+  --primary-color: green();
+  --primary-lighter-color: #b3dddc;
+  --primary-darker-color: #026f6d;
+  --text-primary-color: #{$light-primary-text};
+  --text-primary-lighter-color: #{$light-primary-text};
+  --text-primary-darker-color: #{$light-primary-text};
 }
 $mat-primary: (
+  main: $green,
+  lighter: #b3dddc,
+  darker: #026f6d,
+  200: $green, // For slide toggle,
+  contrast : (
+    main: $light-primary-text,
+    lighter: $light-primary-text,
+    darker: $light-primary-text,
+  )
+);
+$theme-primary: mat.define-palette($mat-primary, main, lighter, darker);
+
+
+body {
+  --accent-color: $yellow;
+  --accent-lighter-color: #ecf4d9;
+  --accent-darker-color: #abcd63;
+  --text-accent-color: #{$dark-primary-text};
+  --text-accent-lighter-color: #{$dark-primary-text};
+  --text-accent-darker-color: #{$dark-primary-text};
+}
+$mat-accent: (
   main: $yellow,
   lighter: #ecf4d9,
   darker: #abcd63,
@@ -167,28 +189,6 @@ $mat-primary: (
     main: $dark-primary-text,
     lighter: $dark-primary-text,
     darker: $dark-primary-text,
-  )
-);
-$theme-primary: mat.define-palette($mat-primary, main, lighter, darker);
-
-
-body {
-  --accent-color: $green;
-  --accent-lighter-color: #b3dddc;
-  --accent-darker-color: #026f6d;
-  --text-accent-color: #{$light-primary-text};
-  --text-accent-lighter-color: #{$dark-primary-text};
-  --text-accent-darker-color: #{$light-primary-text};
-}
-$mat-accent: (
-  main: $green,
-  lighter: #b3dddc,
-  darker: #026f6d,
-  200: $green, // For slide toggle,
-  contrast : (
-    main: $light-primary-text,
-    lighter: $dark-primary-text,
-    darker: $light-primary-text,
   )
 );
 $theme-accent: mat.define-palette($mat-accent, main, lighter, darker);
@@ -238,7 +238,4 @@ $light-squid-theme: mat.define-light-theme((
 $dark-squid-theme: mat.define-dark-theme((
   color: $dark-theme
 ));
-@include mat.button-theme($light-squid-theme);
-@include mat.toolbar-theme($light-squid-theme);
-@include mat.input-theme($light-squid-theme);
-@include mat.icon-theme($light-squid-theme);
+@include mat.all-component-themes($light-squid-theme);

@@ -5,15 +5,23 @@
   src: url('./assets/fonts/Azonix.woff') format('woff');
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: azonix, sans-serif;
 }
 
-.accent {
+.primary {
   color: $green;
 }
+
 .display {
   font-family: azonix, sans-serif;
 }
