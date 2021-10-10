@@ -1,0 +1,12 @@
+<h1>Amount to bet</h1>
+<form>
+  <mat-form-field appearance="outline">
+    <mat-label>QUID</mat-label>
+    <input matInput placeholder="1 to 5" [formControl]="tokens">
+    <mat-error>
+      <div *ngIf="tokens.errors?.required">QUID is required</div>
+      <div *ngIf="tokens.errors?.min">Min 1 QUID</div>
+      <div *ngIf="tokens.errors?.max">Max 5 QUIDs</div>
+    </mat-error>
+  </mat-form-field>
+</form>

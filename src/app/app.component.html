@@ -1,30 +1,43 @@
 <main fxLayout="column" fxLayoutGap="10px">
-  <mat-toolbar color="accent">
+  <mat-toolbar color="primary">
     <span>hype10use</span>
     <span class="toolbar-spacer"></span>
-    <button mat-raised-button color="primary">
-      Configure Wallet
-      <mat-icon>account_balance_wallet</mat-icon>
-    </button>
+    <ng-container *ngIf="play; else configureWallet">
+      <span>Time remaining: {{timeRemaining.minutes | number: '2.0-0'}}:{{timeRemaining.seconds | number: '2.0-0'}}</span>
+    </ng-container>
+    <ng-template #configureWallet>
+      <button mat-raised-button color="accent" (click)="openWalletDialog()">
+        <span *ngIf="address; else configureWallet">Wallet {{address.substring(0, 4)}}... </span>
+        <ng-template #configureWallet>
+          <span>Configure Wallet </span>
+        </ng-template>
+        <mat-icon>account_balance_wallet</mat-icon>
+      </button>
+    </ng-template>
   </mat-toolbar>
   <div fxFlex="1 1 auto" fxLayout="row">
     <div fxFlex="0" fxFlex.gt-xs="10" fxFlex.gt-md="20" fxFlex.gt-lg="30"></div>
-    <div class="title" fxFlex="100" fxFlex.gt-xs="80" fxFlex.gt-md="60" fxFlex.gt-lg="40" fxLayout="column">
-      <strong>Welcome to</strong>
-      <h1>QUIDS GAME</h1>
-      <div class="shapes" fxLayout="row" fxLayoutAlign="space-around">
-        <mat-icon svgIcon="circle" class="shape"></mat-icon>
-        <mat-icon svgIcon="triangle" class="shape"></mat-icon>
-        <mat-icon svgIcon="rectangle" class="shape"></mat-icon>
-      </div>
+    <div class="center-text" fxFlex="100" fxFlex.gt-xs="80" fxFlex.gt-md="60" fxFlex.gt-lg="40" fxLayout="column">
+      <ng-container *ngIf="play; else welcomeScreen">
+        <ergo-play [address]="address"></ergo-play>
+      </ng-container>
+      <ng-template #welcomeScreen>
+        <strong>Welcome to</strong>
+        <h1>QUIDS GAME</h1>
+        <div class="shapes" fxLayout="row" fxLayoutAlign="space-around">
+          <mat-icon svgIcon="circle" class="shape"></mat-icon>
+          <mat-icon svgIcon="triangle" class="shape"></mat-icon>
+          <mat-icon svgIcon="rectangle" class="shape"></mat-icon>
+        </div>
 
-      <div fxFlexOffset="10vh">
-        <strong>The rules of the game:</strong>
-        <p>- Set a certain amount</p>
-        <p>- Bet if the sum of all amounts is odd or even</p>
-      </div>
-      <div fxFlex="1 1 auto" fxFlex.gt-xs="10"></div>
-      <button class="bet-button" mat-raised-button color="primary">BET</button>
+        <div fxFlexOffset="10vh">
+          <strong>The rules of the game:</strong>
+          <p>- Set a certain amount</p>
+          <p>- Bet if the sum of all amounts is odd or even</p>
+        </div>
+        <div fxFlex="1 1 auto" fxFlex.gt-xs="10"></div>
+        <button class="bet-button" mat-raised-button color="accent" (click)="joinGame()">JOIN</button>
+      </ng-template>
     </div>
     <div fxFlex="0" fxFlex.gt-xs="10" fxFlex.gt-md="20" fxFlex.gt-lg="30"></div>
   </div>

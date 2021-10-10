@@ -9,11 +9,16 @@ import { HttpClientModule } from "@angular/common/http";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
 import { DialogConfigureWalletComponent } from './dialog-configure-wallet/dialog-configure-wallet.component';
+import { MatDialogModule } from "@angular/material/dialog";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatInputModule } from "@angular/material/input";
+import { PlayComponent } from './play/play.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DialogConfigureWalletComponent
+    DialogConfigureWalletComponent,
+    PlayComponent
   ],
   imports: [
     BrowserModule,
@@ -22,9 +27,14 @@ import { DialogConfigureWalletComponent } from './dialog-configure-wallet/dialog
     FlexLayoutModule,
     MatToolbarModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule,
+    FormsModule,
+    MatInputModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
