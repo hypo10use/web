@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, from, Observable } from "rxjs";
 
-export enum TOKEN {
-  ERG = 'ERG',
-  QUID = 'QUID'
+export class Token {
+  public static readonly ERG: Token = new Token('ERG', 'ERG', 1000 * 1000 * 1000);
+  public static readonly QUID: Token = new Token('264a662cbeca93c982796a578a6f69d59d25954126074f658db007ed52d1d679', 'QUID', 1);
+
+  private constructor(public id: string, public name: string, public divider: number) {
+  }
 }
 
 export enum WalletConnectionState {
@@ -62,9 +65,9 @@ export class WalletService {
     }
   }
 
-  getBalance(token: TOKEN = TOKEN.ERG): Observable<number> {
+  getBalance(token: Token = Token.ERG): Observable<number> {
     if (this._ergo) {
-      return from(this._ergo.get_balance(token.valueOf()));
+      return from(this._ergo.get_balance(token.id));
     }
     this._walletConnectionState.next(WalletConnectionState.DISCONNECTED);
     throw 'Wallet not initialized';

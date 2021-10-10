@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
-import { TOKEN, WalletConnectionState, WalletService } from "./services/wallet.service";
+import { Token, WalletConnectionState, WalletService } from "./services/wallet.service";
 import { Observable } from "rxjs";
 
 @Component({
@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   WALLET_CONNECTION_STATES: typeof WalletConnectionState = WalletConnectionState;
   balance: number = -1;
 
-  selectedToken = TOKEN.ERG;
+  selectedToken = Token.QUID;
 
   constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, private walletService: WalletService) {
     this.walletConnectionState$ = this.walletService.walletConnectionState$;

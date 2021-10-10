@@ -17,10 +17,13 @@ import { GamePageComponent } from './game-page/game-page.component';
 import { LobbyStageComponent } from './game-page/lobby-stage/lobby-stage.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
-import { ErgPipe } from './pipes/erg.pipe';
+import { TokenPipe } from './pipes/token.pipe';
+import { MatSelectModule } from "@angular/material/select";
+import { MatOptionModule } from "@angular/material/core";
+import { MatRadioModule } from "@angular/material/radio";
 
 @NgModule({
-  declarations: [AppComponent, LoadingComponent, GamePageComponent, LobbyStageComponent, LandingPageComponent, GuessStageComponent, ErgPipe],
+  declarations: [AppComponent, LoadingComponent, GamePageComponent, LobbyStageComponent, LandingPageComponent, GuessStageComponent, TokenPipe],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -30,6 +33,9 @@ import { ErgPipe } from './pipes/erg.pipe';
     MatIconModule,
     MatButtonModule,
     MatProgressSpinnerModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatRadioModule,
     RouterModule.forRoot([{
       path: 'game',
       component: GamePageComponent,
