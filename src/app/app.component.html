@@ -2,8 +2,11 @@
   <mat-toolbar color="primary">
     <span>hype10use</span>
     <span class="toolbar-spacer"></span>
-    <button mat-raised-button color="accent">
-      Configure Wallet
+    <button mat-raised-button color="accent" (click)="openWalletDialog()">
+      <span *ngIf="address; else configureWallet">Wallet {{address.substring(0, 4)}}... </span>
+      <ng-template #configureWallet>
+        <span>Configure Wallet </span>
+      </ng-template>
       <mat-icon>account_balance_wallet</mat-icon>
     </button>
   </mat-toolbar>
