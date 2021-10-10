@@ -16,9 +16,11 @@ import { LoadingComponent } from './loading/loading.component';
 import { GamePageComponent } from './game-page/game-page.component';
 import { LobbyStageComponent } from './game-page/lobby-stage/lobby-stage.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { DialogConfigureWalletComponent } from './dialog-configure-wallet/dialog-configure-wallet.component';
+import { MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
-  declarations: [AppComponent, LoadingComponent, GamePageComponent, LobbyStageComponent, LandingPageComponent, GuessStageComponent],
+  declarations: [AppComponent, LoadingComponent, GamePageComponent, LobbyStageComponent, LandingPageComponent, GuessStageComponent, DialogConfigureWalletComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -27,6 +29,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
+    MatDialogModule,
     RouterModule.forRoot([{
       path: 'game',
       component: GamePageComponent,
@@ -41,4 +44,5 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
