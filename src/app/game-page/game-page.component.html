@@ -7,9 +7,18 @@
   </ul>
 </div>
 
-<div class="content" [ngSwitch]="gameState$ | async">
-  <ergo-lobby-stage *ngSwitchCase="'LOBBY'"></ergo-lobby-stage>
-  <ergo-guess-stage *ngSwitchCase="'GUESS'"></ergo-guess-stage>
-  <ergo-lobby-stage *ngSwitchDefault></ergo-lobby-stage>
+<div class="content">
+  <ng-container *ngIf="(loading$ | async) === false; else loading">
+    <ng-container [ngSwitch]="gameState$ | async">
+      <ergo-lobby-stage *ngSwitchCase="'LOBBY'"></ergo-lobby-stage>
+      <ergo-guess-stage *ngSwitchCase="'GUESS'"></ergo-guess-stage>
+      <ergo-lobby-stage *ngSwitchDefault></ergo-lobby-stage>
+    </ng-container>
+  </ng-container>
 </div>
+
+<ng-template #loading>
+  <p>Loading...</p>
+  <ergo-loading class="loading"></ergo-loading>
+</ng-template>
 
