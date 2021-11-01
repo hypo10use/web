@@ -29,7 +29,15 @@ export interface ErgoAPI {
 
   sign_tx(tx: Object): Promise<string>;
 
+  submit_tx(tx: Object): Promise<string>;
+
+  get_utxos(): Promise<string>;
+
   get_used_addresses(paginate?: Object): Promise<string[]>;
+
+  get_change_address(): Promise<string>;
+
+
 }
 
 @Injectable({
@@ -75,6 +83,40 @@ export class WalletService {
     throw 'Wallet not initialized';
   }
 
+  getChangeAddress(): Observable<string> {
+    if (this._ergo) {
+      return from(this._ergo.get_change_address());
+    }
+    this._walletConnectionState.next(WalletConnectionState.DISCONNECTED);
+    throw 'Wallet not initialized';
+  }
+
+  get_utxos(): Observable<string> {
+    if (this._ergo) {
+      return from(this._ergo.get_utxos());
+    }
+    this._walletConnectionState.next(WalletConnectionState.DISCONNECTED);
+    throw 'Wallet not initialized';
+  }
+
+  sign_tx(tx:Object): Observable<Object> {
+    if (this._ergo) {
+      return from(this._ergo.sign_tx(tx));
+    }
+    this._walletConnectionState.next(WalletConnectionState.DISCONNECTED);
+    throw 'Wallet not initialized';
+  }
+
+  submit_tx(tx:Object): Observable<Object> {
+    if (this._ergo) {
+      return from(this._ergo.submit_tx(tx));
+    }
+    this._walletConnectionState.next(WalletConnectionState.DISCONNECTED);
+    throw 'Wallet not initialized';
+  }
+
+
+
   getUsedAddresses(): Observable<string[]> {
     if (this._ergo) {
       return from(this._ergo.get_used_addresses());
@@ -82,4 +124,5 @@ export class WalletService {
     this._walletConnectionState.next(WalletConnectionState.DISCONNECTED);
     throw 'Wallet not initialized';
   }
+
 }
