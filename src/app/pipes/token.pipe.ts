@@ -1,11 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Token } from "../services/wallet.service";
+import { TokenType } from "../services/wallet.service";
 
 @Pipe({
   name: 'token'
 })
 export class TokenPipe implements PipeTransform {
-  transform(value: number, token: Token): string {
+  transform(value: number, token: TokenType): string {
     return (value / token.divider).toString();
   }
 }

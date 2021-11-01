@@ -1,21 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { MatIconRegistry } from "@angular/material/icon";
-import { DomSanitizer } from "@angular/platform-browser";
-import { Observable } from "rxjs";
-import { Token, WalletConnectionState, WalletService } from "./services/wallet.service";
+import { Component } from '@angular/core';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
+import { TokenType, WalletConnectionState, WalletService } from './services/wallet.service';
 
 @Component({
   selector: 'ergo-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'ergohack';
   walletConnectionState$: Observable<WalletConnectionState>;
   WALLET_CONNECTION_STATES: typeof WalletConnectionState = WalletConnectionState;
   balance: number = -1;
 
-  selectedToken = Token.QUID;
+  selectedToken = TokenType.QUID;
 
   constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, private walletService: WalletService) {
     this.walletConnectionState$ = this.walletService.walletConnectionState$;
@@ -34,11 +34,13 @@ export class AppComponent implements OnInit {
     this.matIconRegistry.addSvgIcon('rectangle', this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/rectangle.svg'));
   }
 
-  ngOnInit(): void {
-
-  }
-
   connectWallet() {
     this.walletService.connectWallet();
+  }
+
+  test() {
+    this.walletService.checkSendUTXOs().then(() => {
+
+    })
   }
 }
