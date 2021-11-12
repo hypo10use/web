@@ -1,1 +1,2 @@
-export const txFee = 1000000;
+export const txFee = 100000;
+export const assmUrl = 'https://assembler.ergoauctions.org/';

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, from, Observable } from "rxjs";
+import {ErgoBox, ErgoBoxes} from "ergo-lib-wasm-browser";
 
 export class Token {
   public static readonly ERG: Token = new Token('ERG', 'ERG', 1000 * 1000 * 1000);
@@ -18,7 +19,6 @@ export enum WalletConnectionState {
 
 interface ErgoWindow extends Window {
   ergo: ErgoAPI
-
   _ergo_rpc_call(string: string, arr: number[]): any
 
   ergo_request_read_access(): Promise<boolean>
@@ -31,7 +31,7 @@ export interface ErgoAPI {
 
   submit_tx(tx: Object): Promise<string>;
 
-  get_utxos(): Promise<string>;
+  get_utxos(amount: string, token_id: string): Promise<ErgoBox[]>;
 
   get_used_addresses(paginate?: Object): Promise<string[]>;
 
@@ -91,25 +91,25 @@ export class WalletService {
     throw 'Wallet not initialized';
   }
 
-  get_utxos(): Observable<string> {
+  get_utxos(value: string, token: string): Promise<ErgoBox[]> {
     if (this._ergo) {
-      return from(this._ergo.get_utxos());
+      return this._ergo.get_utxos(value, token);
     }
     this._walletConnectionState.next(WalletConnectionState.DISCONNECTED);
     throw 'Wallet not initialized';
   }
 
-  sign_tx(tx:Object): Observable<Object> {
+  async sign_tx(tx: Object): Promise<string> {
     if (this._ergo) {
-      return from(this._ergo.sign_tx(tx));
+      return await this._ergo.sign_tx(tx);
     }
     this._walletConnectionState.next(WalletConnectionState.DISCONNECTED);
     throw 'Wallet not initialized';
   }
 
-  submit_tx(tx:Object): Observable<Object> {
+  submit_tx(tx:Object): Promise<string> {
     if (this._ergo) {
-      return from(this._ergo.submit_tx(tx));
+      return this._ergo.submit_tx(tx);
     }
     this._walletConnectionState.next(WalletConnectionState.DISCONNECTED);
     throw 'Wallet not initialized';

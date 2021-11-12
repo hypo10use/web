@@ -13,7 +13,7 @@
 </div>
 
 <div class="content">
-  <ng-container [ngSwitch]="gameState$ | async">
+  <ng-container [ngSwitch]="gameState$">
     <ergo-lobby-stage *ngSwitchCase="'LOBBY'"></ergo-lobby-stage>
     <div class="loading-container" *ngSwitchDefault>
       <p>Please wait for the <span class="display">game</span> to begin.</p>

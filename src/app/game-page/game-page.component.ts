@@ -11,7 +11,7 @@ import { GuessService } from "../services/guess.service";
 })
 export class GamePageComponent implements OnInit{
   readonly gameState$ = this.gameStateService.gameState$;
-  readonly timeRemaining$ = this.gameStateService.timeUntilStateChange$;
+  timeRemaining$ = this.gameStateService.timeUntilStateChange$;
 
   constructor(private gameStateService: GameStateService) {}
 

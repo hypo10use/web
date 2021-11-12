@@ -9,16 +9,14 @@ export type GameState = 'LOBBY' | 'GUESS' | 'RESULT';
 @Injectable()
 export class GameStateService implements OnDestroy {
   readonly destroy$: Subject<void> = new Subject<void>();
-  readonly gameState$: Observable<GameState>;
+  readonly gameState$: GameState;
   readonly timeUntilStateChange$: Observable<number>;
 
   constructor(private socketService: SocketService, private addressService: AddressService) {
     const stateChange$: Observable<any> = this.socketService.messages$.pipe(
       filter(event => event.event === 'stateChanged')
     );
-    this.gameState$ = stateChange$.pipe(
-      map(event => event.state)
-    );
+    this.gameState$ = 'LOBBY';
 
     this.timeUntilStateChange$ = this.socketService.messages$.pipe(
       filter(event => event.event === 'tick'),

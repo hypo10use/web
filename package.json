@@ -26,6 +26,7 @@
     "@coinbarn/ergo-ts": "^0.3.0",
     "ergo-lib-wasm-browser": "^0.14.0",
     "express": "^4.17.1",
+    "json-bigint": "^1.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
