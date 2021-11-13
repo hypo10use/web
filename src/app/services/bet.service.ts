@@ -22,7 +22,7 @@ export class BetService {
 
     const wasm = await ergolib
 
-    let have = JSON.parse(JSON.stringify({"ERG":1}))//"264a662cbeca93c982796a578a6f69d59d25954126074f658db007ed52d1d679":amount
+    let have = JSON.parse(JSON.stringify({"ERG":1, "264a662cbeca93c982796a578a6f69d59d25954126074f658db007ed52d1d679":amount}))
     have['ERG'] += wasm.TxBuilder.SUGGESTED_TX_FEE().as_i64().to_str()
 
     const keys = Object.keys(have);
@@ -141,7 +141,6 @@ export class BetService {
       tx2.outputs[0].value = tx2.outputs[0].value.toString()
       tx2.outputs[1].value = tx2.outputs[1].value.toString()
       tx2.outputs[2].value = tx2.outputs[1].value.toString()
-      console.log("amounteur", tx2.outputs[1].assets[0].amount)
       tx2.outputs[1].assets[0].amount = tx2.outputs[1].assets[0].amount.toString()
       try {
         tx2 = await this.walletService.sign_tx(tx2)
